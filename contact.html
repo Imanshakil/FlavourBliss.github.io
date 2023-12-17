@@ -1,4 +1,4 @@
-﻿ <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <html lang="en">
 
@@ -12,9 +12,42 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-<style>@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+<!-- Existing HTML content -->
+<section id="contact">
+    <div class="contact-container container">
+        <div class="contact-img">
+            <img src="https://i.postimg.cc/1XvYM67V/restraunt2.jpg" alt="" />
+        </div>
+        <div class="form-container">
+            <h2>Contact Us</h2>
+            <input type="text" placeholder="Your Name" />
+            <input type="email" placeholder="E-Mail" />
+            <textarea cols="30" rows="6" placeholder="Type Your Message"></textarea>
+            <button class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</section>
+<!-- Existing script and other HTML content -->
+
+<style>
+
+/* Existing CSS styles */
+
+/* Submission Popup Styles */
+.submission-popup {
+    /* Other styles remain the same */
+    /* ... */
+    /* Animation for showing the popup */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Animation for showing the popup */
+.submission-popup.show {
+    opacity: 1;
+}
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 *,
 *::after,
@@ -23,7 +56,25 @@
   padding: 0;
   margin: 0;
 }
+.submission-popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #117964; /* Background color */
+        color: #fff; /* Text color */
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
 
+    /* Animation for showing the popup */
+    .submission-popup.show {
+        opacity: 1;
+    }
 .html {
   font-size: 62.5%;
 }
@@ -654,22 +705,50 @@ body {
 @media (orientation: landscape) and (max-height: 500px) {
   .showcase-area {
     height: 50vmax;
-  }
-}</style>
- <section id="contact">
-        <div class="contact-container container">
-            <div class="contact-img">
-                <img src="https://i.postimg.cc/1XvYM67V/restraunt2.jpg" alt="" />
-            </div>
+  }}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('.form-container');
+    const submitBtn = form.querySelector('.btn-primary');
 
-            <div class="form-container">
-                <h2>Contact Us</h2>
-                <input type="text" placeholder="Your Name" />
-                <input type="email" placeholder="E-Mail" />
-                <textarea cols="30" rows="6" placeholder="Type Your Message"></textarea>
-                <a href="#" class="btn btn-primary">Submit</a>
-            </div>
-        </div>
-    </section>
-    </body>
-    </html>
+    submitBtn.addEventListener('click', function (event) {
+        event.preventDefault(); // Prevent form submission (for demonstration)
+
+        // Assuming form validation is successful and the review is submitted
+        showSubmissionMessage();
+    });
+
+    function showSubmissionMessage() {
+        const popup = document.createElement('div');
+        popup.classList.add('submission-popup');
+        popup.textContent = 'Thank you for your opinion. Your review has been submitted.';
+
+        // Append the popup to the body
+        document.body.appendChild(popup);
+
+        // Add the 'show' class to display the popup with animation
+        popup.classList.add('show');
+
+        // Automatically close the popup after 3 seconds (adjust timing as needed)
+        setTimeout(() => {
+            popup.remove();
+        }, 3000);
+
+        // Optional: Clear form fields after submission
+        clearFormFields();
+    }
+
+    function clearFormFields() {
+        const inputs = form.querySelectorAll('input, textarea');
+        inputs.forEach(input => {
+            if (input.type === 'text' || input.type === 'email' || input.tagName.toLowerCase() === 'textarea') {
+                input.value = '';
+            }
+        });
+    }
+});
+
+</script>
+</body>
+</html>
